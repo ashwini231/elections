@@ -142,6 +142,7 @@ App = {
           }
 
           candidatesAll.append(candidateTemplate);
+
           var candidateTemplate1 = "<tr><th>" + id + "</th><td>" + name + "</td><td>" + partyname + "</td><td>"+voteCount+"</td></tr>"
           Results.append(candidateTemplate1);
 
@@ -165,12 +166,13 @@ App = {
 
   castVote: function() {
     var candidateId = $('#candidatesSelect').val();
+    let v = sessionStorage.getItem("voterid");
+
     App.contracts.Election.deployed().then(function(instance) {
-      return instance.vote(candidateId, { from: App.account });
+      return instance.vote(candidateId, v,{ from: App.account });
     }).then(function(result) {
       // Wait for votes to update
-      $("#content").hide();
-      $("#table").hide();
+      $("#votepage").hide();
       $("#loader").show();
     }).catch(function(err) {
       console.error(err);
@@ -243,7 +245,9 @@ App = {
       return instance.voterLogin(loginvoterid, loginpassword,loginconstituency,{ from: App.account });
     }).then(function(result) {
       sessionStorage.setItem("loginconst",loginconstituency);
+      sessionStorage.setItem("voterid",loginvoterid);
       $("#voterLoginForm").hide();
+      location.replace("votingPage.html")
 
     }).catch(function(err) {
       console.error(err);

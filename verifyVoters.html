@@ -9,34 +9,35 @@
 
     <!-- Bootstrap -->
     <link href="style/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style/style.css">
 
   </head>
   <body>
-    <div class="container" style="width: 650px;">
+    <div class="container" style="width: 800px;">
       <div class="row">
         <div class="col-lg-12">
           <h1 class="text-center">Voter Verification</h1>
           <hr/>
           <br/>
-          <div id="voterverification">
+          <div id="voterverification" class="contact">
 
             <form onSubmit="App.verifyVoter(); return false;">
               <div class="form-group">
                 <label for="voterid">Voter ID</label>
-                <input type="text" class="form-control" id="voterid">
+                <input type="text" class="form-control" id="voterid"><br>
                 
                 <label for="name">Name</label>
-                <input type="text" class="form-control" id="vname">
+                <input type="text" class="form-control" id="vname"><br>
 
                 <label for="dob">Date of Birth</label>
-                <input type="text" class="form-control" id="dob">
+                <input type="text" class="form-control" id="dob"><br>
 
                 <label for="aadhar">Aadhar ID</label>
-                <input type="text" class="form-control" id="aadharid">
+                <input type="text" class="form-control" id="aadharid"><br>
 
                 <label for="constituencySelect">Constituency</label>
                 <select class="form-control" id="constituencySelect">
-                </select>
+                </select><br>
 
               </div>
               <button type="submit" class="btn btn-primary">Verify Voter</button>
@@ -44,18 +45,18 @@
             </form>
           </div>
 
-          <div id="voterregistration">
+          <div id="voterregistration" class="contact">
 
             <form onSubmit="App.registerVoter(); return false;">
               <div class="form-group">
                 <label for="phone">Phone Number</label>
-                <input type="text" class="form-control" id="phone">
+                <input type="text" class="form-control" id="phone"><br>
                 
                 <label for="password">Password</label>
-                <input type="text" class="form-control" id="password">
+                <input type="text" class="form-control" id="password"><br>
 
                 <label for="email">Email ID</label>
-                <input type="text" class="form-control" id="email">
+                <input type="text" class="form-control" id="email"><br>
 
                 <label for="image">Image</label>
 
@@ -65,12 +66,12 @@
             </form>
           </div>
 
-          <div id="text">
+          <div id="text" class="contact">
             Voter details verified successfully.
             <br>
             Login with the Voter ID and Registered Password.
             <br><br><br>
-            <button">
+            <button>
               <a type="button" class="btn btn-primary" href="voterLogin.html"> Next</a>
              </button>
               <hr />

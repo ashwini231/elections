@@ -9,28 +9,29 @@
 
     <!-- Bootstrap -->
     <link href="style/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style/style.css">
 
   </head>
   <body>
-    <div class="container" style="width: 650px;">
+    <div class="container" style="width: 800px;">
       <div class="row">
         <div class="col-lg-12">
           <h1 class="text-center">Voter Login</h1>
           <hr/>
           <br/>
-          <div id="voterLoginForm">
+          <div id="voterLoginForm" class="contact">
 
             <form onSubmit="App.voterLogin(); return false;">
               <div class="form-group">
                 <label for="voterid">Voter ID</label>
-                <input type="text" class="form-control" id="loginvoterid">
+                <input type="text" class="form-control" id="loginvoterid"><br>
 
                 <label for="password">Password</label>
-                <input type="text" class="form-control" id="loginpassword">
+                <input type="text" class="form-control" id="loginpassword"><br>
                 
                 <label for="constituencySelect">Constituency</label>
                 <select class="form-control" id="loginconstituencySelect">
-                </select>
+                </select><br>
 
               </div>
               <button type="submit" class="btn btn-primary">Login</button>

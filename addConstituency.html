@@ -9,24 +9,25 @@
 
     <!-- Bootstrap -->
     <link href="style/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style/style.css">
 
   </head>
   <body>
-    <div class="container" style="width: 650px;">
+    <div class="container" style="width: 800px;">
       <div class="row">
         <div class="col-lg-12">
           <h1 class="text-center">Add Constituency</h1>
           <hr/>
           <br/>
-          <div id="addConstituency">
+          <div id="addConstituency" class="contact">
 
             <form onSubmit="App.addConstituency(); return false;">
               <div class="form-group">
                 <label for="cid">Constituency ID</label>
-                <input type="text" class="form-control" id="cid">
+                <input type="text" class="form-control" id="cid"><br>
 
                 <label for="candidateConstituency">Constituency Name</label>
-                <input type="text" class="form-control" id="constituencyname">
+                <input type="text" class="form-control" id="constituencyname"><br>
 
               </div>
               <button type="submit" class="btn btn-primary">Add Constituency</button>
