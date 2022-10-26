@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>Election Results</title>
+
+    <!-- Bootstrap -->
+    <link href="style/bootstrap.min.css" rel="stylesheet">
+
+  </head>
+  <body>
+    <div class="container" style="width: 650px;">
+      <div class="row">
+        <div class="col-lg-12">
+          <h1 class="text-center">Voter Verification</h1>
+          <hr/>
+          <br/>
+          <div id="voterverification">
+
+            <form onSubmit="App.verifyVoter(); return false;">
+              <div class="form-group">
+                <label for="voterid">Voter ID</label>
+                <input type="text" class="form-control" id="voterid">
+                
+                <label for="name">Name</label>
+                <input type="text" class="form-control" id="vname">
+
+                <label for="dob">Date of Birth</label>
+                <input type="text" class="form-control" id="dob">
+
+                <label for="aadhar">Aadhar ID</label>
+                <input type="text" class="form-control" id="aadharid">
+
+                <label for="constituencySelect">Constituency</label>
+                <select class="form-control" id="constituencySelect">
+                </select>
+
+              </div>
+              <button type="submit" class="btn btn-primary">Verify Voter</button>
+              <hr />
+            </form>
+          </div>
+
+          <div id="voterregistration">
+
+            <form onSubmit="App.registerVoter(); return false;">
+              <div class="form-group">
+                <label for="phone">Phone Number</label>
+                <input type="text" class="form-control" id="phone">
+                
+                <label for="password">Password</label>
+                <input type="text" class="form-control" id="password">
+
+                <label for="email">Email ID</label>
+                <input type="text" class="form-control" id="email">
+
+                <label for="image">Image</label>
+
+              </div>
+              <button type="submit" class="btn btn-primary">Register Voter</button>
+              <hr />
+            </form>
+          </div>
+
+          <div id="text">
+            Voter details verified successfully.
+            <br>
+            Login with the Voter ID and Registered Password.
+            <br><br><br>
+            <button">
+              <a type="button" class="btn btn-primary" href="voterLogin.html"> Next</a>
+             </button>
+              <hr />
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="style/bootstrap.min.js"></script>
+    <script src="style/web3.min.js"></script>
+    <script src="truffle-contract.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>
