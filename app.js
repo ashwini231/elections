@@ -1,4 +1,3 @@
-var loginconst;
 
 App = {
   web3Provider: null,
@@ -121,6 +120,7 @@ App = {
       var candidatesSelect = $('#candidatesSelect');
       candidatesSelect.empty();
 
+      let c = sessionStorage.getItem("loginconst");
       for (var i = 1; i <= candidatesCount; i++) {
         electionInstance.candidates(i).then(function(candidate) {       
       
@@ -133,7 +133,7 @@ App = {
           // Render candidate Result
           var candidateTemplate = "<tr><th>" + id + "</th><td>" + name + "</td><td>" + partyname + "</td><td>" + consti +"</td></tr>"
 
-          if(consti=='101'){
+          if(consti==c){
             candidatesResults.append(candidateTemplate);
 
             // Render candidate ballot option
@@ -238,47 +238,15 @@ App = {
     var loginvoterid=$('#loginvoterid').val();
     var loginpassword=$('#loginpassword').val();
     var loginconstituency=$('#loginconstituencySelect').val();
-    loginconst=loginconstituency;
     
     App.contracts.Election.deployed().then(function(instance) {
       return instance.voterLogin(loginvoterid, loginpassword,loginconstituency,{ from: App.account });
     }).then(function(result) {
+      sessionStorage.setItem("loginconst",loginconstituency);
       $("#voterLoginForm").hide();
-      App.ConstList();
+
     }).catch(function(err) {
       console.error(err);
-    });
-  },
-
-  ConstList: function() {
-    App.contracts.Election.deployed().then(function(instance) {
-      return instance.candidatesCount();
-    }).then(function(candidatesCount) {
-      var candidatesResults = $("#candidatesResults");
-      candidatesResults.empty();
-
-      var candidatesSelect = $('#candidatesSelect');
-      candidatesSelect.empty();
-
-      for (var i = 1; i <= candidatesCount; i++) {
-        electionInstance.candidates(i).then(function(candidate) {       
-      
-          var id = candidate[0];
-          var name = candidate[1];
-          var partyname = candidate[2];
-          var constituency = candidate[3];
-          // Render candidate Result  
-
-          if(loginconst==constituency){
-            var candidateTemplate = "<tr><th>" + id + "</th><td>" + name + "</td><td>" + partyname + "</td><td>" + consti +"</td></tr>"
-            candidatesResults.append(candidateTemplate);
-
-            // Render candidate ballot option
-            var candidateOption = "<option value='" + id + "' >" + name + "</ option>"
-            candidatesSelect.append(candidateOption);  
-          } 
-        });
-      }
     });
   }
 
