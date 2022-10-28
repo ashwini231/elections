@@ -59,10 +59,13 @@ App = {
     var voterid=$('#voterid').val();
     $("#loader").hide();
     $("#content").hide();
+    $("#dat").hide();
     $("#content1").show();
     $("#content2").show();
     $("#contentResult").show();
     $("#votepage").show();
+    $("#candlist").hide();
+    $("#v3").hide();
     $("#voterregistration").hide();
     $("#text").hide();
 
@@ -154,26 +157,52 @@ App = {
     }).then(function(hasVoted) {
       // Do not allow a user to vote
       if(hasVoted) {
-        $('form').hide();
+        $('votepage').hide();
       }
-      loader.hide();
-      content.show();
     }).catch(function(error) {
       console.warn(error);
-    });
+    });  
     
   },
 
   castVote: function() {
     var candidateId = $('#candidatesSelect').val();
     let v = sessionStorage.getItem("voterid");
+    var today = new Date();
 
     App.contracts.Election.deployed().then(function(instance) {
-      return instance.vote(candidateId, v,{ from: App.account });
+      return instance.vote(candidateId, v,today.toString(),{ from: App.account });
     }).then(function(result) {
       // Wait for votes to update
       $("#votepage").hide();
       $("#loader").show();
+    }).catch(function(err) {
+      console.error(err);
+    });
+  },
+
+  setDate: function() {
+    var sday = $('#sday').val();
+    var smonth = $('#smonth').val();
+    var syear = $('#syear').val();
+
+    var eday = $('#eday').val();
+    var emonth = $('#emonth').val();
+    var eyear = $('#eyear').val();
+
+    var sdate=syear+"-"+smonth+"-"+sday;
+    var edate=eyear+"-"+emonth+"-"+eday;
+
+    App.contracts.Election.deployed().then(function(instance) {
+      return instance.setDate(sdate, edate,{ from: App.account });
+    }).then(function(result) {
+      sessionStorage.setItem("startDate",sdate);
+      sessionStorage.setItem("endDate",edate);
+      $('#setDate').hide();
+      $('#dat').show();
+      $('#start').text(sdate);
+      $('#end').text(edate);
+
     }).catch(function(err) {
       console.error(err);
     });
@@ -246,8 +275,22 @@ App = {
     }).then(function(result) {
       sessionStorage.setItem("loginconst",loginconstituency);
       sessionStorage.setItem("voterid",loginvoterid);
-      $("#voterLoginForm").hide();
-      location.replace("votingPage.html")
+
+      let s = sessionStorage.getItem("startDate");
+      let e = sessionStorage.getItem("endDate");
+      var today = new Date();
+      var start = new Date(s);
+      var end = new Date(e);
+      if(today<start) {
+        location.replace("candidateList.html")
+      }
+      else if(today>end){
+        location.replace("results.html")
+      }
+      else{
+        location.replace("votingPage.html")
+      }
+      
 
     }).catch(function(err) {
       console.error(err);
