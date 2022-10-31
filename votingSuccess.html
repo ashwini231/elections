@@ -16,38 +16,13 @@
     <div class="container" style="width: 800px;">
       <div class="row">
         <div class="col-lg-12">
-          <h1 class="text-center">Voting Results</h1>
+          <h1 class="text-center">Voting Successful</h1>
           <hr/>
           <br/>
-          <div id="loader">
-            <p class="text-center">Loading...</p>
-          </div>
-          <div id="contentResult" style="display: none;" class="contact">
-            <form onSubmit="App.viewResult(); return false;">
-              <div class="form-group">
-                <label for="constituencySelect">Constituency</label>
-                <select class="form-control" id="constituencySelect">
-                </select><br>
-
-              </div>
-              <button type="submit" class="btn btn-primary">View Result</button>
-              <hr />
-            </form>
-            <table class="table">
-              <thead>
-                <tr>
-                  <th scope="col">Candidate ID</th>
-                  <th scope="col">Candidate Name</th>
-                  <th scope="col">Party Name</th>
-                  <th scope="col">Votes</th>
-                </tr>
-              </thead>
-              <tbody id="Results">
-              </tbody>
-            </table>
-            <hr/>
+              <h3>You have Voted Successfully.</h3></hr>
+              <p id="datetime"></p>
             <p id="accountAddress" class="text-center"></p>
-          </div>
+
         </div>
       </div>
     </div>

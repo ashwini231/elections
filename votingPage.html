@@ -37,8 +37,8 @@
               </tbody>
             </table>
             <hr/>
-            <form onSubmit="App.castVote(); return false;">
-              <div class="form-group" id="v2">
+            <form id="v2" onSubmit="App.castVote(); return false;">
+              <div class="form-group">
                 <label for="candidatesSelect">Select Candidate</label>
                 <select class="form-control" id="candidatesSelect">
                 </select>
@@ -47,12 +47,6 @@
               <hr />
             </form>
             <p id="accountAddress" class="text-center"></p>
-          </div>
-
-          <div id="v3">
-            <p>You have Voted Successfully.</p>
-            <p>Date and Time</p>
-            <p id="datetime"></p>
           </div>
 
         </div>

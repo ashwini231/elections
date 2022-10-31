@@ -65,7 +65,6 @@ App = {
     $("#contentResult").show();
     $("#votepage").show();
     $("#candlist").hide();
-    $("#v3").hide();
     $("#voterregistration").hide();
     $("#text").hide();
 
@@ -124,6 +123,8 @@ App = {
       candidatesSelect.empty();
 
       let c = sessionStorage.getItem("loginconst");
+      let rc = sessionStorage.getItem("resconst");
+
       for (var i = 1; i <= candidatesCount; i++) {
         electionInstance.candidates(i).then(function(candidate) {       
       
@@ -146,18 +147,13 @@ App = {
 
           candidatesAll.append(candidateTemplate);
 
-          var candidateTemplate1 = "<tr><th>" + id + "</th><td>" + name + "</td><td>" + partyname + "</td><td>"+voteCount+"</td></tr>"
-          Results.append(candidateTemplate1);
+          if(consti==rc){
+            var candidateTemplate1 = "<tr><th>" + id + "</th><td>" + name + "</td><td>" + partyname + "</td><td>"+voteCount+"</td></tr>"
+            Results.append(candidateTemplate1);
+          }         
 
           
         });
-      }
-
-      return electionInstance.voters(App.account);
-    }).then(function(hasVoted) {
-      // Do not allow a user to vote
-      if(hasVoted) {
-        $('votepage').hide();
       }
     }).catch(function(error) {
       console.warn(error);
@@ -174,8 +170,10 @@ App = {
       return instance.vote(candidateId, v,today.toString(),{ from: App.account });
     }).then(function(result) {
       // Wait for votes to update
-      $("#votepage").hide();
-      $("#loader").show();
+      $("#v1").hide();
+      $("#v2").hide();
+      $("#datetime").text(today.toString());
+      location.replace("votingSuccess.html")
     }).catch(function(err) {
       console.error(err);
     });
@@ -222,6 +220,12 @@ App = {
     });
   },
 
+  viewResult: function() {
+    var resconst=$('#constituencySelect').val();
+    sessionStorage.setItem("resconst",resconst);
+    location.replace("results.html")
+  },
+
   addConstituency: function() {
     var cid=$('#cid').val();
     var constname=$('#constituencyname').val();
@@ -239,9 +243,8 @@ App = {
     var vname=$('#vname').val();
     var dob=$('#dob').val();
     var aadharid=$('#aadharid').val();
-    var vconstituency=$('#constituencySelect').val();
     App.contracts.Election.deployed().then(function(instance) {
-      return instance.verifyVoter(voterid,vname,dob,aadharid,vconstituency,{ from: App.account });
+      return instance.verifyVoter(voterid,vname,dob,aadharid,{ from: App.account });
     }).then(function(result) {
       $("#voterverification").hide();
       $("#voterregistration").show();
@@ -268,12 +271,12 @@ App = {
   voterLogin: function() {
     var loginvoterid=$('#loginvoterid').val();
     var loginpassword=$('#loginpassword').val();
-    var loginconstituency=$('#loginconstituencySelect').val();
     
     App.contracts.Election.deployed().then(function(instance) {
-      return instance.voterLogin(loginvoterid, loginpassword,loginconstituency,{ from: App.account });
+      einstance=instance;
+      return instance.voterLogin(loginvoterid, loginpassword,{ from: App.account });
     }).then(function(result) {
-      sessionStorage.setItem("loginconst",loginconstituency);
+      //sessionStorage.setItem("loginconst",loginconstituency);
       sessionStorage.setItem("voterid",loginvoterid);
 
       let s = sessionStorage.getItem("startDate");
@@ -288,7 +291,19 @@ App = {
         location.replace("results.html")
       }
       else{
-        location.replace("votingPage.html")
+        einstance.voterlist(loginvoterid).then(function(voter) {
+          var hasvoted=voter[10];
+          var loginconstituency= voter[4];
+          if(hasvoted == 1){
+            location.replace("votingSuccess.html")
+          }
+          else{
+            sessionStorage.setItem("loginconst",loginconstituency);
+            location.replace("votingPage.html")
+          }
+          
+        });
+        
       }
       
 
