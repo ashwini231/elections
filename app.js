@@ -135,7 +135,8 @@ App = {
           var voteCount=candidate[4];
 
           // Render candidate Result
-          var candidateTemplate = "<tr><th>" + id + "</th><td>" + name + "</td><td>" + partyname + "</td><td>" + consti +"</td></tr>"
+          var sym='symbol/'+partyname+'.png';
+          var candidateTemplate = "<tr><th>" + id + "</th><td>" + name + "</td><td>" + partyname + "</td><td> <img src='"+sym+"' width='120' height='80'> </td><td>" + consti +"</td></tr>"
 
           if(consti==c){
             candidatesResults.append(candidateTemplate);
@@ -148,7 +149,7 @@ App = {
           candidatesAll.append(candidateTemplate);
 
           if(consti==rc){
-            var candidateTemplate1 = "<tr><th>" + id + "</th><td>" + name + "</td><td>" + partyname + "</td><td>"+voteCount+"</td></tr>"
+            var candidateTemplate1 = "<tr><th>" + id + "</th><td>" + name + "</td><td>" + partyname + "</td><td> <img src='"+sym+"' width='120' height='80'> </td><td>"+voteCount+"</td></tr>"
             Results.append(candidateTemplate1);
           }         
 
@@ -211,7 +212,7 @@ App = {
     var partyname=$('#partyname').val();
     var constituency=$('#constituencySelect').val();
     App.contracts.Election.deployed().then(function(instance) {
-      return instance.addCandidate(cname, partyname,constituency,{ from: App.account });
+      return instance.addCandidate(cname, partyname,constituency,"",{ from: App.account });
     }).then(function(result) {
       $("#content1").show();
       location.replace("addCandidates.html")
