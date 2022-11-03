@@ -226,6 +226,10 @@ App = {
     location.replace("results.html")
   },
 
+  viewCandidates: function() {
+    location.replace("candidateList.html")
+  },
+
   addConstituency: function() {
     var cid=$('#cid').val();
     var constname=$('#constituencyname').val();
@@ -279,13 +283,13 @@ App = {
       //sessionStorage.setItem("loginconst",loginconstituency);
       sessionStorage.setItem("voterid",loginvoterid);
 
-      let s = sessionStorage.getItem("startDate");
-      let e = sessionStorage.getItem("endDate");
+      var s = sessionStorage.getItem("startDate");
+      var e = sessionStorage.getItem("endDate");
       var today = new Date();
       var start = new Date(s);
       var end = new Date(e);
       if(today<start) {
-        location.replace("candidateList.html")
+        location.replace("beforeVotingStarts.html")
       }
       else if(today>end){
         location.replace("results.html")
