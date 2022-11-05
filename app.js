@@ -142,7 +142,7 @@ App = {
             candidatesResults.append(candidateTemplate);
 
             // Render candidate ballot option
-            var candidateOption = "<option value='" + id + "' >" + name + "</ option>"
+            var candidateOption = "<option value='" + id + "' >" +partyname+" - "+ name + "</ option>"
             candidatesSelect.append(candidateOption);  
           }
 
